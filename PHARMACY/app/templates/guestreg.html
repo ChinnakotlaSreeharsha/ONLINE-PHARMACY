@@ -1,0 +1,763 @@
+
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GuestForm</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">   
+    <link rel="stylesheet" href="{% static 'css/lander.css'%}">   
+   
+</head>
+
+<body style="background-color :#009579">
+    
+  <div class="container mt-5 pt-3">
+      <h1 class="text-center text-light fw-bold mt-4">GuestForm</h1>
+      <hr class="text-dark">
+  
+      <div class="card mt-3 ">
+          <div class="card-body">
+  
+              <form class="row g-3" id="formid" method="post" action="/guestreg/" enctype="multipart/form-data" >
+                  {% csrf_token %}
+                  <div class="col-md-6">
+                    <label for="uname" class="form-label fw-bolder ">Name</label>
+                    <input   placeholder="eg. Sree" maxlength="30" autocomplete="off" id="uname" name="guestname" type="text" class="form-control textonly" id="inputEmail4">
+                    <div class="error text-danger ms-1"></div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="dob"  class="form-label fw-bolder">DOB</label>
+                    <input  type="text" name="dob" onfocus="(this.type = 'date')" onblur="(this.type = 'text')" placeholder="dd-mm-yyyy"  class="form-control num" id="dob">
+                    <div class="error text-danger ms-1"></div>
+                  </div>
+
+                  <div class="col-md-6">
+                      <label for="email" class="form-label fw-bolder">Email</label>
+                      <input  name="email"   type="text" class="form-control nospace" placeholder="eg . sree@gmail.com" id="email">
+                      <div class="error text-danger ms-1"></div>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="contactno" class="form-label fw-bolder">Contact number</label>
+                      <input   name="contactno"   maxlength="10" inputmode="numeric" class="form-control num" placeholder="eg . 8179324145" id="contactno">
+                      <div class="error text-danger ms-1"></div>
+                    </div>
+                  <div class="col-12">
+                    <label for="address" class="form-label fw-bolder">Address</label>
+                    <input  name="address" type="text" maxlength="70" class="form-control onespace" id="address" placeholder="eg. 14/166/14/26a,WEAVERS COLONY,SYDHAPURAM,KADIRI">
+                    <div class="error text-danger ms-1"></div>
+                  </div>
+
+                  <div class="col-md-6 d-none">
+                    <label for="town" class="form-label fw-bolder">Town</label>
+                    <input  name="town" type="text" class="form-control textonly" value = "Kadiri" id="town" placeholder="eg. KADIRI">
+                    <div class="error text-danger ms-1"></div>
+                </div>
+
+                  <div class="col-md-6 ">
+                    <label for="landmark" class="form-label fw-bolder">Landmark</label>
+                    <input  name="landmark" type="text" maxlength="20" class="form-control onespace" id="landmark" placeholder="eg. near Abhiruci restaurent">
+                    <div class="error text-danger ms-1"></div>
+                </div>
+
+                <div class="col-md-6 ">
+                  <label for="pincode" class="form-label fw-bolder">Pincode</label>
+                  <input  name="pincode"  maxlength="6" inputmode="numeric" placeholder="Enter your code" class="form-control num" id="pincode">
+                  <div class="error text-danger ms-1" id="pincodeerr"></div>
+                </div>
+                
+
+                <!--<div class="col-md-6">
+                  <label for="state" class="form-label fw-bolder ">State</label>
+                  <input   placeholder="eg. Ap" maxlength="30" autocomplete="off" id="state" name="gueststate" type="text" class="form-control textonly" id="inputEmail4">
+                  <div class="error text-danger ms-1"></div>
+                </div>-->
+
+
+                <!--<div class="col-md-6">
+                  <label for="state" class="form-label fw-bolder">State</label>
+                  <input  name="state" type="text" readonly class="form-control textonly" id="state" placeholder="eg. AndraPradesh">
+                  <div class="error text-danger ms-1"></div>
+                </div>-->
+
+
+                <div class="col-md-6">
+                  <label for="state" class="form-label fw-bolder">State</label>
+                  <select name="state" class="form-select" id="state">
+                      <option value="" disabled selected>Select State</option>
+                      <option value="Andhra Pradesh">Andhra Pradesh</option>
+                      <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                      <option value="Assam">Assam</option>
+                      <option value="Bihar">Bihar</option>
+                      <option value="Chhattisgarh">Chhattisgarh</option>
+                      <option value="Goa">Goa</option>
+                      <option value="Gujarat">Gujarat</option>
+                      <option value="Haryana">Haryana</option>
+                      <option value="Himachal Pradesh">Himachal Pradesh</option>
+                      <option value="Jharkhand">Jharkhand</option>
+                      <option value="Karnataka">Karnataka</option>
+                      <option value="Kerala">Kerala</option>
+                      <option value="Madhya Pradesh">Madhya Pradesh</option>
+                      <option value="Maharashtra">Maharashtra</option>
+                      <option value="Manipur">Manipur</option>
+                      <option value="Meghalaya">Meghalaya</option>
+                      <option value="Mizoram">Mizoram</option>
+                      <option value="Nagaland">Nagaland</option>
+                      <option value="Odisha">Odisha</option>
+                      <option value="Punjab">Punjab</option>
+                      <option value="Rajasthan">Rajasthan</option>
+                      <option value="Sikkim">Sikkim</option>
+                      <option value="Tamil Nadu">Tamil Nadu</option>
+                      <option value="Telangana">Telangana</option>
+                      <option value="Tripura">Tripura</option>
+                      <option value="Uttar Pradesh">Uttar Pradesh</option>
+                      <option value="Uttarakhand">Uttarakhand</option>
+                      <option value="West Bengal">West Bengal</option>
+                      <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                      <option value="Chandigarh">Chandigarh</option>
+                      <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
+                      <option value="Lakshadweep">Lakshadweep</option>
+                      <option value="Delhi">Delhi</option>
+                      <option value="Puducherry">Puducherry</option>
+                  </select>
+                  <div class="error text-danger ms-1"></div>
+              </div>
+              
+              
+
+                
+                <!--<div class="col-md-6">
+                  <label for="district" class="form-label fw-bolder">District</label>
+                  <input  name="district" readonly type="text" class="form-control textonly" id="district" placeholder="eg. Sri Satya Sai">
+                  <div class="error text-danger ms-1"></div>
+              </div>-->
+
+
+              <div class="col-md-6">
+                <label for="district" class="form-label fw-bolder">District</label>
+                <input name="district" type="text" class="form-control textonly" id="district" placeholder="Enter your district">
+                <div class="error text-danger ms-1"></div>
+            </div>
+            
+            <div class="col-md-6">
+              <label for="country" class="form-label fw-bolder">Country</label>
+              <input name="country" type="text" class="form-control textonly" id="country" placeholder="Enter your country">
+              <div class="error text-danger ms-1"></div>
+          </div>
+
+              
+                  <div class="col-md-6 ">
+                      <label for="file" class="form-label fw-bolder">Prescription</label>
+                      <input  name="image" class="form-control" accept=".pdf" type="file" id="file" placeholder="only pdf <=2MB ">
+                      <div class="error text-danger ms-1"></div>
+                    </div>
+
+                    <!--<script>
+                      document.getElementById('formFile').addEventListener('change', function () {
+                          var fileInput = document.getElementById('formFile');
+                          var fileError = document.getElementById('fileError');
+                  
+                          if (fileInput.files.length > 0) {
+                              var file = fileInput.files[0];
+                  
+                              if (file.type !== 'application/pdf') {
+                                  fileError.textContent = 'Please select a PDF file.';
+                                  fileInput.value = ''; // Clear the input to prevent submission
+                              } else if (file.size > 2 * 1024 * 1024) { // 5MB in bytes
+                                  fileError.textContent = '';
+                                  fileInput.value = ''; // Clear the input to prevent submission
+                              } else {
+                                  fileError.textContent = '';
+                              }
+                          }
+                      });
+                  </script>-->
+  
+                   <!--<div  class="col-12 text-center ">
+                      <input class="form-check-input " name="termsagree" style="padding: 10px;" type="checkbox"  id="termsagree">
+                      <label class="form-check-label  fs-5  p-0" for="termsagree">
+                        I agree to these <a  target=”_blank” href="https://pharmeasy.in/legal/terms-and-conditions">Terms and Conditions</a>
+                      </label>
+                  <p id="termsagreeerr" class="error text-danger " ></p>
+                  </div>-->
+
+
+                  <div class="col-12 text-center">
+                    <button type="submit" class="btn btn-primary">Place Order</button>
+                  </div>
+                  <!--<h6 class="text-danger m-0 mt-1">*Flat &#8377;10 for Handling charge.</h6> 
+
+                  <p class="text-danger m-0 mt-1">*For now Payment mode COD (cash on delivery) only available. </p> 
+                  <p class="text-danger m-0">*You place this as a guest so every Updates are only sent to 
+                    your mail id so kindly make sure the mail id is valid and active.
+                  </p>
+                  <p class="text-danger m-0">*Only the medications in the Prescription are accepted.</p>
+                  <h6 class="text-danger m-0">*After analysing the prescription Your are notified by a mail and you have to
+                    confirm or cancel the order by checking the products and Amount . Otherwise your order cannot be processed further.
+                  </h6>-->
+                  <p class="text-danger m-0">**Only medical prescriptions are accepting in pdf format, which will be less than 2MB size**</p>
+                  <h6 class="text-danger m-0 mt-1">!! After analysing the prescription only you'll get an order confirmation.</h6> 
+                </form>
+  
+  
+          </div>
+        </div>
+  
+      
+      
+  </div>
+  
+  
+  </body>
+    
+
+<script>
+const form= document.getElementById('formid')
+ const name= document.getElementById('uname')
+ const dob= document.getElementById('dob')
+ const email= document.getElementById('email')
+ const contactno= document.getElementById('contactno')
+ const address= document.getElementById('address')
+ const town= document.getElementById('town')
+ const landmark= document.getElementById('landmark')
+ const district= document.getElementById('district')
+ const state= document.getElementById('state')
+ const country= document.getElementById('country')
+ const pincode= document.getElementById('pincode')
+ const file = document.getElementById('file')
+ const termsagree=document.getElementById('termsagree');
+ const termsagreeerr=document.getElementById('termsagreeerr');
+
+
+
+ form.addEventListener('submit',(e)=>{
+  
+ const nameVal=name.value.trim()
+ const dobVal=dob.value.trim()
+ const emailVal=email.value.trim()
+ const contactnoVal=contactno.value.trim()
+ const addressVal=address.value.trim()
+ const townVal=town.value.trim()
+ const landmarkVal=landmark.value.trim()
+ const districtVal=district.value.trim()
+ const stateVal=state.value.trim()
+ const countryVal = country.value.trim();
+ const pincodeVal=pincode.value.trim()
+ const fileVal=file.value.trim()
+  let err =true
+  if (nameVal === ''){
+        setErr(name,"Please Enter your Name");
+        err = false
+    }
+  else if (nameVal === '' || nameVal.length < 3){
+        setErr(name,"Please Enter a valid Name");
+        err = false
+    }
+   
+    else{
+        setSuccess(name)
+    }
+
+  if (stateVal === ''){
+      setErr(state,"Please Enter your State");
+      err = false
+  }
+  else if (stateVal.length < 3){
+      setErr(state,"Please Enter a valid State");
+      err = false
+  }
+  else{
+      setSuccess(state)
+  }
+  
+
+  if (countryVal === ''){
+    setErr(country, "Please Enter your Country");
+    err = false;
+} else if (countryVal.length < 3){
+    setErr(country, "Please Enter a valid Country");
+    err = false;
+} else {
+    setSuccess(country);
+}
+
+
+
+  if (districtVal === ''){
+      setErr(district,"Please Enter your District");
+      err = false
+   }
+  else if (districtVal === '' || nameVal.length < 3){
+      setErr(district,"Please Enter a valid District");
+      err = false
+    }
+ 
+    else{
+      setSuccess(District)
+    }
+
+
+    if (dobVal === ''){
+        setErr(dob,"please Enter your DOB");
+        err = false
+    }
+    else{
+        let age =new Date().getFullYear() - dobVal.split("-")[0]
+        if (age > 90){
+        setErr(dob,"Please Enter a valid DOB");
+        err = false
+        }
+        else if (age < 18 ){
+            setErr(dob,"Age must be greater then 18");
+            err = false
+        }
+        else
+            setSuccess(dob)
+    }
+
+
+    // if (emailVal === ''){
+    //     setErr(email,"Please Enter a valid Email");
+    //     err = false
+    // }
+    // else if ( !validateEmail(emailVal)){
+    //     setErr(email,"Enter a valid Email");
+    //     err = false
+    // }
+    // else
+    //         setSuccess(email)
+    let domainnames=emailVal.split(".")
+    let domain = domainnames[domainnames.length-1]
+    // console.log(domain)
+    if (emailVal === ''){
+        setErr(email,"Please Enter your Email");
+        err = false
+    }
+    else if ( !validateEmail(emailVal)){
+        setErr(email,"Please Enter a valid Email");
+        err = false
+    }
+    else if(!(domain == "com" || domain=="in" || domain=="net" || domain=="org")){
+        setErr(email,"Email should end with [com,in,org,net]");
+        err = false
+    }
+    else{
+        let username = emailVal.split("@")[0]
+        let provider = emailVal.split("@")[1].split(".")[0]
+        console.log(provider.search(/^g.+l$/))
+        if(username.length < 6 || username.length > 30   || username.search(/[a-z]/) == -1 ){
+            setErr(email,"Please Enter a valid Email");
+        err = false
+        }
+        
+        else if (provider.search(/^g.+l$/) != -1 && provider != "gmail"){
+        setErr(email,"Please correct the spelling for gmail");
+        err = false
+        }
+        else if (provider.search(/^y.+o$/) != -1 && provider != "yahoo"){
+        setErr(email,"Please correct the spelling for yahoo");
+        err = false
+        }
+        else if (provider.search(/^b.+g$/) != -1 && provider != "bing"){
+        setErr(email,"Please correct the spelling for bing");
+        err = false
+        }
+        else{
+
+            setSuccess(email)
+        }
+    }
+
+    if (contactnoVal === '' ){
+        setErr(contactno,"Please Enter your Contact Number");
+        err = false
+    }
+    else if (contactnoVal === '' || contactnoVal.length != 10){
+        setErr(contactno,"Please Enter a valid Contact Number");
+        err = false
+    }
+    else
+            setSuccess(contactno)
+
+            if (addressVal === '' ){
+        setErr(address,"Please Enter your Address");
+        err = false
+    }
+          else if (addressVal === '' || addressVal.length < 15){
+        setErr(address,"Please Enter a valid Address");
+        err = false
+    }
+    else
+            setSuccess(address)
+
+    if (landmarkVal === '' ){
+        setErr(landmark,"Please Enter your Landmark");
+        err = false
+    }
+    else if (landmarkVal === '' || landmarkVal.length < 10){
+        setErr(landmark,"Landmark require atleast 10 characters");
+        err = false
+    }
+    else
+            setSuccess(landmark)
+
+    // if (districtVal === '' || districtVal.length < 3){
+    //     setErr(district,"Enter a valid District");
+    //     err = false
+    // }
+    // else
+    //         setSuccess(district)
+
+    // if (stateVal === '' || stateVal.length < 3){
+    //     setErr(state,"Enter a valid State");
+    //     err = false
+    // }
+    // else
+    //         setSuccess(state)
+
+    if (townVal === '' || townVal.length < 3){
+        setErr(town,"Enter a valid Town");
+        err = false
+    }
+    else
+            setSuccess(town)
+
+    if (pincodeVal === '' ){
+        setErr(pincode,"Please Enter your pincode");
+        err = false
+    }
+    else if ( pincodeVal.length != 6){
+        setErr(pincode,"Please Enter a valid pincode");
+        err = false
+    }
+    else
+            setSuccess(pincode)
+
+          if (fileVal === ''){
+            setErr(file,"Please upload your Prescription");
+            err = false
+          }
+          
+          else{
+      let   filesize = document.getElementById('file').files[0].size/1024;
+      if(filesize > 2048){
+        setErr(file,"File is too Big , Please upload File less than 2MB");
+        err = false
+        console.log(filesize,"kb")
+      }
+      else{
+        setSuccess(file)
+
+      }
+    }
+
+    if (! err){
+      e.preventDefault()
+      
+    }
+    if(! termsagree.checked){
+      e.preventDefault()
+      termsagreeerr.innerText = "Please agree our terms and conditions"
+    }
+    else{
+      termsagreeerr.innerText = ""
+
+    }
+
+ })
+
+
+ function setErr(element,msg){
+    const inputgrp=element.parentElement;
+    const errelement = inputgrp.querySelector('.error');
+    errelement.innerText=msg;
+};
+
+function setSuccess(element){
+    const inputgrp=element.parentElement;
+    const errelement = inputgrp.querySelector('.error');
+    errelement.innerText="";
+};
+
+const validateEmail = (email) => {
+  return String(email)
+    .toLowerCase()
+    .match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+};
+
+
+
+
+</script>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<script>
+  
+$(function() {
+ 
+  $(function() {
+    var last ;
+    window.elen=0;
+    $('#uname').keydown(function (e) {
+    var email = $("#uname").val();
+    window.elen=email.length
+    window.last = email[email.length - 1];
+    console.log(window.last , window.elen)
+    
+});
+
+
+$('#uname').keydown(function (e) {
+    
+  if (e.ctrlKey || e.altKey) {
+  
+    e.preventDefault();
+    
+  } else {
+  
+    var key = e.keyCode;
+    if((window.elen == 0 &&  key == 32) || (window.last === " " && key == 32)  ){
+        e.preventDefault();
+    }
+   else if  (window.last == " " && key == 32) {
+        e.preventDefault();
+    }
+
+    else if (!((key == 8) || (key == 13) || (key == 9) || (key == 32) || (key == 46) || (key >= 35 && key <= 40) || (key >= 65 && key <= 90))) {
+    
+      e.preventDefault();
+      
+    }
+    
+
+  }
+  
+});
+
+  })
+
+
+$('.textonly').keydown(function (e) {
+
+  if (e.ctrlKey || e.altKey) {
+  
+    e.preventDefault();
+    
+  } else {
+  
+    var key = e.keyCode;
+    
+    if (!((key == 8) || (key == 13) || (key == 9) || (key == 32) || (key == 46) || (key >= 35 && key <= 40) || (key >= 65 && key <= 90))) {
+    
+      e.preventDefault();
+      
+    }
+
+  }
+  
+});
+
+
+$('.num').keydown(function (e) {
+
+if (e.ctrlKey || e.altKey || e.shiftKey) {
+
+  e.preventDefault();
+  
+} else {
+
+  var key = e.keyCode;
+  
+  if (!((key == 8) || (key == 13) || key==9 || (key == 46) || (key >= 35 && key <= 40) || (key >= 48 && key <= 57))) {
+  
+    e.preventDefault();
+    
+  }
+
+}
+
+});
+
+
+
+});
+
+
+
+// no space
+$('.nospace').keydown(function (e) {
+
+    var key = e.keyCode;
+if (key ==32 ) {
+
+  e.preventDefault();
+  
+}
+
+});
+
+// one space 
+
+
+$('.onespace').keydown(function (e) {
+    target= e.target.value
+    targetlength=e.target.value.length
+    last=target[targetlength-1]
+    console.log(last);
+    if (e.ctrlKey || e.altKey) {
+    
+      e.preventDefault();
+      
+    } else {
+    
+      var key = e.keyCode;
+      if((targetlength == 0 &&  key == 32) || (last === " " && key == 32)  ){
+          e.preventDefault();
+      }
+     else if  (targetlength == " " && key == 32) {
+          e.preventDefault();
+      }
+      else if (key > 144 && (((key == 191) || (key == 188 )   || (key == 190)  ) &&( last=="," || last == "." || last=="/") )){
+        e.preventDefault();
+    }
+    else if (key == 144 && !((key == 191) || (key == 188 )   || (key == 190) ))
+    {    
+        e.preventDefault();
+    }    
+//   else if (!((key == 8) || (key == 13) || (key == 9) || (key == 32) || (key == 46) || (key >= 35 && key <= 40) || (key >= 65 && key <= 90))) {
+      
+    //     e.preventDefault();
+        
+    //   }
+      
+  
+    }
+    
+  });
+
+
+
+$(document).ready(function(){
+    $("#email").on('change keyup paste',function(e){
+     
+    
+      var start = e.target.selectionStart;
+      
+      //Converting
+      $(this).val($(this).val().toLowerCase());
+      
+      
+      e.target.selectionStart = e.target.selectionEnd = start;
+    })
+})
+
+$('input').on('input', function() {
+  const inputId = $(this).attr('id');
+  const errorElement = $(`#${inputId}`).siblings('.error');
+  errorElement.text('');
+});
+
+</script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+<script>
+
+
+  $('#pincode').on("input", function(){
+    var pincode = $('#pincode').val();
+    if (pincode.length == 6)
+   { 
+    $.getJSON("https://api.postalpincode.in/pincode/"+pincode, function(data){
+        
+        console.log(data[0].Status)
+        if (data[0].Status == "Success"){
+            $('#state').val(data[0].PostOffice[0].State);
+            $('#district').val(data[0].PostOffice[0].District);
+            $('#country').val(data[0].PostOffice[0].Country); // Add this line to set the country
+            console.log(data[0].PostOffice[0].State)
+            console.log(data[0].PostOffice[0].District)
+            console.log(data[0].PostOffice[0].Country)
+            $('#pincodeerr').text("");
+
+        }
+        else{
+            $('#state').val("");
+            $('#district').val("");
+            $('#country').val(""); // Clear the country field if pincode is invalid
+            $('#pincodeerr').text("Please enter a valid pincode");
+            
+        }
+    })
+}
+else if (pincode.length == 0){
+    $('#pincodeerr').text("Please enter your pincode");
+    $('#state').val("");
+     $('#district').val("");
+     $('#country').val(""); // Clear the country field if pincode is empty
+}
+else{
+    $('#pincodeerr').text("Pincode must contains 6 numbers");
+    $('#state').val("");
+    $('#district').val("");
+    $('#country').val(""); // Clear the country field if pincode is invalid
+}
+
+
+})
+
+
+function getErrorMessage(inputId) {
+  switch (inputId) {
+      case 'name':
+          return 'Please enter your name';
+      case 'dob':
+          return 'Please enter your date of birth';
+      case 'weight':
+          return 'Please enter your weight';
+      case 'email':
+          return 'Please enter your email';
+      case 'contactno':
+          return 'Please enter your contact number';
+      case 'password-field':
+          return 'Please enter your password';
+      case 'password-field1':
+          return 'Please confirm your password';
+      case 'address':
+          return 'Please enter your address';
+      case 'landmark':
+          return 'Please enter your landmark';
+      case 'pincode':
+          return 'Please enter your pincode';
+      case 'state':
+          return 'Please select your state';
+      case 'district':
+          return 'Please select your district';
+      case 'country':
+          return 'Please select your country';
+      default:
+          return '';
+  }
+}
+
+
+</script>
+
+
+
+</html>
+    {% endblock  %}
+
+
+
+
+    
